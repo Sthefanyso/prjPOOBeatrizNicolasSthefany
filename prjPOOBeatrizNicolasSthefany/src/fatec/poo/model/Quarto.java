@@ -10,11 +10,10 @@ public class Quarto {
     private double valorDiaria;
     private double totalFaturado;
 
-    public Quarto(int numero, String tipo, double valorDiaria, double totalFaturado) {
+    public Quarto(int numero, String tipo, double valorDiaria) {
         this.numero = numero;
         this.tipo = tipo;
         this.valorDiaria = valorDiaria;
-        this.totalFaturado = totalFaturado;
     }
 
     public int getNumero() {
