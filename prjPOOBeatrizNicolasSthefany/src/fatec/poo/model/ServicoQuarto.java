@@ -1,6 +1,5 @@
 package fatec.poo.model;
 
-import java.util.logging.Logger;
 
 /**
  * @author Beatriz / Nicolas / Sthefany
@@ -30,6 +29,5 @@ public class ServicoQuarto {
     public double getValor() {
         return valor;
     }
-    
-    
+        
 }

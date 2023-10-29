@@ -4,6 +4,7 @@ package fatec.poo.model;
  * @author Beatriz / Nicolas / Sthefany
  */
 public class Hospede {
+
     private String cpf;
     private double taxaDesconto;
 
@@ -18,6 +19,5 @@ public class Hospede {
     public void setTaxaDesconto(double taxaDesconto) {
         this.taxaDesconto = taxaDesconto;
     }
-    
-    
+        
 }

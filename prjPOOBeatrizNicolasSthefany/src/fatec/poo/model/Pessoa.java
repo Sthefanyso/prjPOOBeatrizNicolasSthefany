@@ -4,6 +4,7 @@ package fatec.poo.model;
  * @author Beatriz / Nicolas / Sthefany
  */
 public class Pessoa {
+    
     private String nome;
     private String endereco;
     private String telefone;
@@ -33,6 +34,5 @@ public class Pessoa {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
+        
 }

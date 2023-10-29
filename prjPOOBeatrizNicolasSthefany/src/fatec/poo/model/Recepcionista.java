@@ -23,6 +23,6 @@ public class Recepcionista {
     public String getTurno() {
         return turno;
     }
-    
+      
     
 }
