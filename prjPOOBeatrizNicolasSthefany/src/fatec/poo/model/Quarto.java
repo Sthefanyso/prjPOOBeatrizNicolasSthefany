@@ -10,11 +10,25 @@ public class Quarto {
     private double valorDiaria;
     private double totalFaturado;
 
-    public Quarto(int numero, String tipo, double valorDiaria, double totalFaturado) {
+    public Quarto(int numero, String tipo, double valorDiaria) {
         this.numero = numero;
         this.tipo = tipo;
         this.valorDiaria = valorDiaria;
-        this.totalFaturado = totalFaturado;
+    }
+    
+    public void reservar(){
+        this.situacao = true;
+    }
+    
+    /*- Tem como parâmetro de entrada a quantidade de dias que o hóspede ficou hospedado no quarto.
+      - Passa a situação do quarto para disponível (false).
+      - Calcula o valor da hospedagem de acordo como a quantidade de dias e o valor da diária que deve ser adicionado no total faturado.
+      - Retorna o valor da hospedagem*/
+    public double liberar(int dias){
+        this.situacao = false;
+        totalFaturado = dias * valorDiaria;
+        
+        return totalFaturado;
     }
 
     public int getNumero() {
@@ -25,7 +39,7 @@ public class Quarto {
         return tipo;
     }
 
-    public boolean isSituacao() {
+    public boolean getSituacao() {
         return situacao;
     }
 

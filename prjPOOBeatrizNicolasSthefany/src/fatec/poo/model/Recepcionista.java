@@ -3,13 +3,13 @@ package fatec.poo.model;
 /**
  * @author Beatriz / Nicolas / Sthefany
  */
-public class Recepcionista {
+public class Recepcionista extends Pessoa {
     private int regFunc;
     private String turno;
 
-    public Recepcionista(int regFunc, String turno) {
+    public Recepcionista( int regFunc, String nome) {
+        super(nome);
         this.regFunc = regFunc;
-        this.turno = turno;
     }
 
     public void setTurno(String turno) {
@@ -23,6 +23,4 @@ public class Recepcionista {
     public String getTurno() {
         return turno;
     }
-      
-    
 }
