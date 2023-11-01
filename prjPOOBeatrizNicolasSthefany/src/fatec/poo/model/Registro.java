@@ -1,6 +1,7 @@
 package fatec.poo.model;
 import java.time.LocalDate;
-
+import java.time.temporal.ChronoUnit;
+import java.time.Duration;
 /**
  * @author Beatriz / Nicolas / Sthefany
  */
@@ -18,41 +19,41 @@ public class Registro {
         this.recepcionista = recepcionista;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public void setDataSaida(LocalDate dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public int getCodigo() {
+        return codigo;
     }
 
     public LocalDate getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(LocalDate dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
     public LocalDate getDataSaida() {
         return dataSaida;
-    }
-
-    public void setDataSaida(LocalDate dataSaida) {
-        this.dataSaida = dataSaida;
     }
 
     public double getValorHospedagem() {
         return valorHospedagem;
     }
 
-    public void setValorHospedagem(double valorHospedagem) {
-        this.valorHospedagem = valorHospedagem;
-    }
-
 
     public void setHospede(Hospede hospede) {
         this.hospede = hospede;
+    }
+    
+    public void reservarQuarto(Hospede h, Quarto q){
+        q.reservar();
+    }
+
+    
+    public void liberarQuarto(Quarto q, Hospede h, ServicoQuarto sq){
+        
+        int dias = (int) (Duration.between(dataEntrada.atStartOfDay(), dataSaida.atStartOfDay())).toDays();
+        q.liberar(dias);
+        valorHospedagem = q.getTotalFaturado() - (q.getTotalFaturado()* h.getTaxaDesconto()) + sq.getValor();
     }
     
    
