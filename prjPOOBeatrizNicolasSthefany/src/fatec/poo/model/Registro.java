@@ -43,7 +43,7 @@ public class Registro {
     public void setHospede(Hospede hospede) {
         this.hospede = hospede;
     }
-    
+   
     public void reservarQuarto(Hospede h, Quarto q){
         q.reservar();
     }
