@@ -16,7 +16,9 @@ public class Aplic {
          Quarto objQuarto  = new Quarto(5, "S", 200.5);
          Recepcionista objRecepcionista = new Recepcionista(5005, "Aline Teixeira");
          
-         Registro objRegistro = new Registro(1010, LocalDate.parse("18-10-2023"), objRecepcionista);
+         Registro objRegistro = new Registro(1010, LocalDate.parse("2018-05-26"), objRecepcionista);
+         objRegistro.setDataSaida(LocalDate.parse("2018-06-25"));
+         
 
         
         

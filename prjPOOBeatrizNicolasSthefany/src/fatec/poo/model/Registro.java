@@ -1,4 +1,5 @@
 package fatec.poo.model;
+import java.time.Duration;
 import java.time.LocalDate;
 
 /**
@@ -54,6 +55,6 @@ public class Registro {
     public void setHospede(Hospede hospede) {
         this.hospede = hospede;
     }
-    
+
    
 }
