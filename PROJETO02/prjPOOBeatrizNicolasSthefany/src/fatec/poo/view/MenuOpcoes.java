@@ -50,6 +50,11 @@ public class MenuOpcoes extends javax.swing.JFrame {
         jMenuCadastro.add(jMenuItemQuarto);
 
         jMenuItemRecepcionista.setText("Recepcionista");
+        jMenuItemRecepcionista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRecepcionistaActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemRecepcionista);
 
         jMenuItemHospede.setText("Hospede");
@@ -89,7 +94,9 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuartoActionPerformed
-        // TODO add your handling code here:
+       CadastroQuarto objCadastroQuarto;
+       objCadastroQuarto = new CadastroQuarto();
+       objCadastroQuarto.setVisible(true);
     }//GEN-LAST:event_jMenuItemQuartoActionPerformed
 
     private void jMenuItemReservarLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReservarLiberarActionPerformed
@@ -98,6 +105,12 @@ public class MenuOpcoes extends javax.swing.JFrame {
        objReserva.setVisible(true);
 
     }//GEN-LAST:event_jMenuItemReservarLiberarActionPerformed
+
+    private void jMenuItemRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecepcionistaActionPerformed
+        CadastroRecepcionista objCadastroRecepcionista;
+       objCadastroRecepcionista= new CadastroRecepcionista();
+       objCadastroRecepcionista.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRecepcionistaActionPerformed
 
     /**
      * @param args the command line arguments
