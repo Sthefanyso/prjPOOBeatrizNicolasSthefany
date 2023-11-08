@@ -29,11 +29,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hospede"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemHospedeActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemServicoQuarto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Servi&#xe7;o de Quarto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemServicoQuartoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

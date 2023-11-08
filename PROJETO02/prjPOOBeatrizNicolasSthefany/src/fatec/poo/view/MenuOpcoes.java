@@ -58,9 +58,19 @@ public class MenuOpcoes extends javax.swing.JFrame {
         jMenuCadastro.add(jMenuItemRecepcionista);
 
         jMenuItemHospede.setText("Hospede");
+        jMenuItemHospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHospedeActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemHospede);
 
         jMenuItemServicoQuarto.setText("Serviço de Quarto");
+        jMenuItemServicoQuarto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemServicoQuartoActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemServicoQuarto);
 
         jMenuBar.add(jMenuCadastro);
@@ -106,11 +116,25 @@ public class MenuOpcoes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItemReservarLiberarActionPerformed
 
+
     private void jMenuItemRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecepcionistaActionPerformed
         CadastroRecepcionista objCadastroRecepcionista;
        objCadastroRecepcionista= new CadastroRecepcionista();
        objCadastroRecepcionista.setVisible(true);
     }//GEN-LAST:event_jMenuItemRecepcionistaActionPerformed
+
+    private void jMenuItemServicoQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServicoQuartoActionPerformed
+        ServicoQuarto objServico;
+        objServico = new ServicoQuarto();
+        objServico.setVisible(true);
+    }//GEN-LAST:event_jMenuItemServicoQuartoActionPerformed
+
+    private void jMenuItemHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHospedeActionPerformed
+        CadastroHospede objHospede;
+        objHospede = new CadastroHospede();
+        objHospede.setVisible(true);
+    }//GEN-LAST:event_jMenuItemHospedeActionPerformed
+
 
     /**
      * @param args the command line arguments
