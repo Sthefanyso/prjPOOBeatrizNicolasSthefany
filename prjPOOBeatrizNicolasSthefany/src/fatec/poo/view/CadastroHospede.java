@@ -51,6 +51,14 @@ public class CadastroHospede extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Hóspede");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabelCPF.setText("CPF");
 
@@ -81,6 +89,11 @@ public class CadastroHospede extends javax.swing.JFrame {
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -185,21 +198,6 @@ public class CadastroHospede extends javax.swing.JFrame {
         
     }
     
-       private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        conexao = new Conexao("","");
-        
-        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        //é necessário inserir manualmente caminho para o bd aqui, assim como foi feito em aula!!
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
-                
-        daoHospede = new DaoHospede(conexao.conectar());
-    }
-    
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        conexao.fecharConexao();
-        dispose();
-    }  
-    
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose(); 
     }//GEN-LAST:event_btnSairActionPerformed
@@ -208,7 +206,6 @@ public class CadastroHospede extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtCPFActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-                              
        hospede = null;
        hospede = daoHospede.consultar(jtxtCPF.getText());
        
@@ -246,6 +243,47 @@ public class CadastroHospede extends javax.swing.JFrame {
        }  
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        hospede = new Hospede(txtNome.getText(),jtxtCPF.getText());
+        
+        hospede.setEndereco(txtEndereco.getText());
+        hospede.setTaxaDesconto(Double.parseDouble(txtTaxa.getText()));
+        hospede.setTelefone(txtTelefone.getText());
+        daoHospede.inserir(hospede);
+         
+        jtxtCPF.setText("");
+        txtNome.setText("");
+        txtEndereco.setText("");
+        txtTelefone.setText("");
+        txtTaxa.setText("");
+        btnInserir.setEnabled(false);
+        jtxtCPF.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtTaxa.setEnabled(false);
+        jtxtCPF.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        //é necessário inserir manualmente caminho para o bd aqui, assim como foi feito em aula!!
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
+        daoHospede = new DaoHospede(conexao.conectar());                               
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+     
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
