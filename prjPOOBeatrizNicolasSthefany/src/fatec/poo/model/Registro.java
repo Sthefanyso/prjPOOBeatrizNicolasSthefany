@@ -46,6 +46,18 @@ public class Registro {
         return valorHospedagem;
     }
 
+    public Hospede getHospede() {
+        return hospede;
+    }
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public Recepcionista getRecepcionista() {
+        return recepcionista;
+    }
+
    
     public void reservarQuarto(Hospede h, Quarto q){
         this.hospede = h;
@@ -63,6 +75,7 @@ public class Registro {
     
     public double liberarQuarto(){
         double somaServico = 0;
+        double desconto;
         int dias = (int) (Duration.between(dataEntrada.atStartOfDay(), dataSaida.atStartOfDay())).toDays(); //calcula a quatidade de dias entre o ckeckin e o checkout e converte para INT
         
         
@@ -71,8 +84,10 @@ public class Registro {
             somaServico += s.getValor();
             } 
         
+        valorHospedagem = quarto.liberar(dias);
         
-        valorHospedagem = quarto.liberar(dias) - (quarto.getTotalFaturado()* hospede.getTaxaDesconto()) + somaServico;
+        desconto = valorHospedagem * (hospede.getTaxaDesconto()/100);
+        valorHospedagem = valorHospedagem - desconto+ somaServico;
         
         
         return valorHospedagem;

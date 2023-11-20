@@ -8,7 +8,7 @@ public class Quarto {
     private String tipo;
     private boolean situacao;
     private double valorDiaria;
-    private double totalFaturado;
+    private double totalFaturado = 0;
 
     public Quarto(int numero, String tipo, double valorDiaria) {
         this.numero = numero;
@@ -25,10 +25,12 @@ public class Quarto {
       - Calcula o valor da hospedagem de acordo como a quantidade de dias e o valor da diária que deve ser adicionado no total faturado.
       - Retorna o valor da hospedagem*/
     public double liberar(int dias){
+        double hospedagem;
+        hospedagem = dias * this.valorDiaria;
         this.situacao = false;
-        totalFaturado = dias * valorDiaria;
+        this.totalFaturado += hospedagem;
         
-        return totalFaturado;
+        return hospedagem;
     }
 
     public int getNumero() {
