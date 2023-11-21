@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fatec.poo.view;
 
+import fatec.poo.model.Recepcionista;
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoRecepcionista;
+import javax.swing.JOptionPane;
 /**
  *
- * @author orion
+ * @author Sthefany, Nicolas e Beatriz
  */
 public class CadastroRecepcionista extends javax.swing.JFrame {
 
@@ -110,14 +110,29 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -130,6 +145,11 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabelEnderecoCadastroRecepcionista.setText("Endereço");
 
@@ -214,6 +234,9 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    
     private void rdbManhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbManhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbManhaActionPerformed
@@ -233,6 +256,92 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
     private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       recepcionista = null;
+       recepcionista = daoRecepcionista.consultar(txtRegFuncional.getText());
+       
+       if (recepcionista == null){
+           txtRegFuncional.setEnabled(false);
+           txtNome.setEnabled(true);
+           txtNome.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       else{
+          txtNome.setText(recepcionista.getNome());
+          txtEndereco.setText(recepcionista.getEndereco());
+          txtTelefone.setText(recepcionista.getTelefone());
+          
+       
+          txtRegFuncional.setEnabled(false); 
+          txtNome.setEnabled(true);
+          txtNome.requestFocus();
+          txtEndereco.setEnabled(true);
+          txtTelefone.setEnabled(true);
+          
+          btnConsultar.setEnabled(false);
+          btnInserir.setEnabled(false);
+          btnAlterar.setEnabled(true);
+          btnExcluir.setEnabled(true);
+       }    
+     
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        recepcionista = new Recepcionista(txtRegFuncional.getText(), txtNome.getText());
+        daoRecepcionista.inserir(recepcionista);
+         
+        txtRegFuncional.setText("");
+        txtNome.setText("");      
+        btnInserir.setEnabled(false);
+        txtRegFuncional.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtRegFuncional.requestFocus();
+        txtEndereco.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+           recepcionista.setNome(txtNome.getText());
+           daoRecepcionista.alterar(recepcionista);
+        } 
+        
+        txtRegFuncional.setText("");
+        txtNome.setText("");
+        txtRegFuncional.setEnabled(true); 
+        txtNome.setEnabled(false);
+        txtRegFuncional.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+      if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoRecepcionista.excluir(recepcionista); 
+            
+            txtRegFuncional.setText("");
+            txtNome.setText("");
+            txtEndereco.setText("");
+            txtTelefone.setText("");
+            txtRegFuncional.setEnabled(true); 
+            txtNome.setEnabled(false);
+            txtRegFuncional.requestFocus();
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
    
 
