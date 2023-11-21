@@ -69,7 +69,7 @@ public class DaoHospede {
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true){
-                h = new Hospede(rs.getString("nome_hospede"),                 cpf);
+                h = new Hospede(rs.getString("nome_hospede"),cpf);
             }
         }
         catch(SQLException ex){

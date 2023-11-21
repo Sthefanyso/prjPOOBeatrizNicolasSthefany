@@ -124,8 +124,8 @@ public class MenuOpcoes extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemRecepcionistaActionPerformed
 
     private void jMenuItemServicoQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServicoQuartoActionPerformed
-        ServicoQuarto objServico;
-        objServico = new ServicoQuarto();
+        CadastroServicoQuarto objServico;
+        objServico = new CadastroServicoQuarto();
         objServico.setVisible(true);
     }//GEN-LAST:event_jMenuItemServicoQuartoActionPerformed
 

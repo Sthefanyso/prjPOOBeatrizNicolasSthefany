@@ -5,16 +5,19 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoServicoQuarto;
+
 /**
  *
  * @author Sthefany
  */
-public class ServicoQuarto extends javax.swing.JFrame {
+public class CadastroServicoQuarto extends javax.swing.JFrame {
 
     /**
      * Creates new form ServicoQuarto
      */
-    public ServicoQuarto() {
+    public CadastroServicoQuarto() {
         initComponents();
     }
 
@@ -138,6 +141,52 @@ public class ServicoQuarto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+      private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+        conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\Fatec\\Documents\\Fatec_2023_1\\Itu\\POO\\Exemplos\\prjExemploDaoAccess\\src\\fatec\\poo\\basedados\\dbEmpresa.accdb");
+                
+        daoServicoQuarto = new DaoServicoQuarto(conexao.conectar());
+    }                              
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+        conexao.fecharConexao();
+        dispose();
+    }                                  
+    
+     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+       servicoQuarto = null;
+       servicoQuarto = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
+       
+       if (servicoQuarto == null){
+           txtCodigo.setEnabled(false);
+           cbxDescricao.setEnabled(true);
+           txtValor.setEnabled(true);
+           txtValor.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       else{
+          txtCodigo.setText(servicoQuarto.getDescricao());
+       
+          txtCodigo.setEnabled(false); 
+          cbxDescricao.setEnabled(true);
+          txtValor.setEnabled(true);
+          txtValor.requestFocus();
+          
+          btnConsultar.setEnabled(false);
+          btnInserir.setEnabled(false);
+          btnAlterar.setEnabled(true);
+          btnExcluir.setEnabled(true);
+       }    
+       
+    }                                            
+
+    
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
@@ -156,4 +205,7 @@ public class ServicoQuarto extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao=null;
+    private fatec.poo.model.ServicoQuarto servicoQuarto = null;
+    private DaoServicoQuarto daoServicoQuarto = null;
 }
