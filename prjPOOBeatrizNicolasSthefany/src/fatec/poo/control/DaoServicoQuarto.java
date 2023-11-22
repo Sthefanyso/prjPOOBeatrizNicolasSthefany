@@ -25,7 +25,7 @@ public class DaoServicoQuarto {
         PreparedStatement ps = null;
         
         try{
-            ps = conn.prepareStatement("INSERT INTO tbservicoQuarto(codigo, descricao, valor) VALUES(?,?,?");
+            ps = conn.prepareStatement("INSERT INTO tbservicoQuarto(codigo, descricao, valor) VALUES(?,?,?)");
             ps.setInt(1, servicoQuarto.getCodigo());
             ps.setString(2, servicoQuarto.getDescricao());
             ps.setDouble(3, servicoQuarto.getValor());
@@ -39,7 +39,7 @@ public class DaoServicoQuarto {
      public void alterar(ServicoQuarto servicoQuarto) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE tbServicoQuarto set descricao = ? , set valor = ? " +
+            ps = conn.prepareStatement("UPDATE tbServicoQuarto set descricao = ? , valor = ? " +
                                                  "where codigo = ?");
             
             
@@ -67,6 +67,7 @@ public class DaoServicoQuarto {
             
             if(rs.next()==true){
                 s = new ServicoQuarto(codigo, rs.getString("descricao"));
+                s.setValor(rs.getDouble("valor"));
             }
         }
         catch(SQLException ex){

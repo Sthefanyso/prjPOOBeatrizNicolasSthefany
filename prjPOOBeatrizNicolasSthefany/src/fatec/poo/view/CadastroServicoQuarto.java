@@ -7,6 +7,8 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoServicoQuarto;
+import fatec.poo.model.ServicoQuarto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,6 +46,14 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro Serviço de Quarto");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabelCodigo.setText("Código");
 
@@ -58,6 +68,11 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -71,13 +86,28 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,23 +171,17 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        conexao = new Conexao("","");
-        
-        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\Fatec\\Documents\\Fatec_2023_1\\Itu\\POO\\Exemplos\\prjExemploDaoAccess\\src\\fatec\\poo\\basedados\\dbEmpresa.accdb");
-                
-        daoServicoQuarto = new DaoServicoQuarto(conexao.conectar());
-    }                              
+                    
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        conexao.fecharConexao();
-        dispose();
-    }                                  
+
     
-     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {                                             
-       servicoQuarto = null;
-       servicoQuarto = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        servicoQuarto = null;
+        servicoQuarto = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
        
        if (servicoQuarto == null){
            txtCodigo.setEnabled(false);
@@ -171,7 +195,9 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
            btnExcluir.setEnabled(false);
        }
        else{
-          txtCodigo.setText(servicoQuarto.getDescricao());
+          txtCodigo.setText((String.valueOf(servicoQuarto.getCodigo())));
+          cbxDescricao.setSelectedItem(servicoQuarto.getDescricao());
+          txtValor.setText(Double.toString(servicoQuarto.getValor()));
        
           txtCodigo.setEnabled(false); 
           cbxDescricao.setEnabled(true);
@@ -183,14 +209,74 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
           btnAlterar.setEnabled(true);
           btnExcluir.setEnabled(true);
        }    
-       
-    }                                            
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
-    
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         conexao.fecharConexao();
         dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
+    }//GEN-LAST:event_formWindowClosing
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+               conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
+        daoServicoQuarto = new DaoServicoQuarto(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        servicoQuarto = new ServicoQuarto(Integer.parseInt(txtCodigo.getText()), (cbxDescricao.getSelectedItem()).toString());
+        servicoQuarto.setValor(Double.parseDouble(txtValor.getText()));
+        daoServicoQuarto.inserir(servicoQuarto);
+         
+        
+        txtCodigo.setText("");
+        txtValor.setText("");    
+        
+        txtCodigo.setEnabled(true);
+        txtValor.setEnabled(false);
+        cbxDescricao.setEnabled(false);
+        txtCodigo.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+           servicoQuarto.setValor(Double.parseDouble(txtValor.getText()));
+           daoServicoQuarto.alterar(servicoQuarto);
+        } 
+        
+        txtCodigo.setText("");
+        txtValor.setText("");
+        cbxDescricao.setSelectedIndex(0);
+        txtCodigo.setEnabled(true); 
+        txtValor.setEnabled(false);
+        txtCodigo.requestFocus();
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+       if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoServicoQuarto.excluir(servicoQuarto); 
+            
+            txtCodigo.setText("");
+            txtValor.setText("");
+            cbxDescricao.setSelectedIndex(0);
+            txtCodigo.setEnabled(true); 
+            txtValor.setEnabled(false);
+            txtCodigo.requestFocus();
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -206,6 +292,6 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
     private Conexao conexao=null;
-    private fatec.poo.model.ServicoQuarto servicoQuarto = null;
+    private ServicoQuarto servicoQuarto = null;
     private DaoServicoQuarto daoServicoQuarto = null;
 }

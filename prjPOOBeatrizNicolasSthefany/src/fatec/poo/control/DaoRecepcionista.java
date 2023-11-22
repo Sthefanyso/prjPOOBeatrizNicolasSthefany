@@ -71,7 +71,7 @@ public class DaoRecepcionista {
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true){
-                r = new Recepcionista(rs.getInt("nome_recepcionista"),                 regFunc);
+                r = new Recepcionista(regFunc,rs.getString("nome_recepcionista"));
             }
         }
         catch(SQLException ex){

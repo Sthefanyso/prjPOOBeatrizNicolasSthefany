@@ -1,6 +1,7 @@
 
 package fatec.poo.control;
 
+import fatec.poo.view.CadastroQuarto;
 import fatec.poo.model.Quarto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

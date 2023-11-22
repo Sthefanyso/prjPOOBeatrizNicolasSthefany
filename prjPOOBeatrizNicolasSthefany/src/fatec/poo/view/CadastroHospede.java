@@ -231,6 +231,8 @@ public class CadastroHospede extends javax.swing.JFrame {
           txtEndereco.setText(hospede.getEndereco());
           txtTelefone.setText(hospede.getTelefone());
           txtTaxa.setText(Double.toString(hospede.getTaxaDesconto()));
+
+       
        
            jtxtCPF.setEnabled(false);
            txtNome.setEnabled(true);

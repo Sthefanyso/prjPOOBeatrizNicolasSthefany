@@ -34,7 +34,7 @@ public class CadastroQuarto extends javax.swing.JFrame {
         jLabelNCadastroQuarto = new javax.swing.JLabel();
         jLabelValorDCadastroQuarto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        javax.swing.JRadioButton rdbSolteito = new javax.swing.JRadioButton();
+        rdbSolteiro = new javax.swing.JRadioButton();
         rdbCasal = new javax.swing.JRadioButton();
         txtNQuarto = new javax.swing.JTextField();
         txtValorDiaria = new javax.swing.JTextField();
@@ -46,6 +46,14 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Cadastro Quarto"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabelNCadastroQuarto.setText("Nº Quarto");
 
@@ -53,15 +61,10 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
 
-        buttonGroup1.add(rdbSolteito);
-        rdbSolteito.setSelected(true);
-        rdbSolteito.setText("Solteiro");
-        rdbSolteito.setEnabled(false);
-        rdbSolteito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbSolteitoActionPerformed(evt);
-            }
-        });
+        buttonGroup1.add(rdbSolteiro);
+        rdbSolteiro.setSelected(true);
+        rdbSolteiro.setText("Solteiro");
+        rdbSolteiro.setEnabled(false);
 
         buttonGroup1.add(rdbCasal);
         rdbCasal.setText("Casal");
@@ -72,7 +75,7 @@ public class CadastroQuarto extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(rdbSolteito)
+                .addComponent(rdbSolteiro)
                 .addGap(18, 18, 18)
                 .addComponent(rdbCasal)
                 .addGap(0, 16, Short.MAX_VALUE))
@@ -82,7 +85,7 @@ public class CadastroQuarto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbSolteito)
+                    .addComponent(rdbSolteiro)
                     .addComponent(rdbCasal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -186,24 +189,6 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
   
     
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
-        conexao = new Conexao("","");
-        
-        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
-                
-        daoQuarto = new DaoQuarto(conexao.conectar());
-    }                                 
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        conexao.fecharConexao();
-        dispose();
-    }                                  
-    
-    private void rdbSolteitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSolteitoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdbSolteitoActionPerformed
-
     private void txtValorDiariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorDiariaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorDiariaActionPerformed
@@ -224,7 +209,8 @@ public class CadastroQuarto extends javax.swing.JFrame {
            txtNQuarto.setEnabled(false);
            txtValorDiaria.setEnabled(true);
            txtValorDiaria.requestFocus();
-           
+           rdbCasal.setEnabled(true);
+           rdbSolteiro.setEnabled(true);
            
            
            btnConsultar.setEnabled(false);
@@ -235,10 +221,15 @@ public class CadastroQuarto extends javax.swing.JFrame {
        else{
           String val = Double.toString(quarto.getValorDiaria());
           txtValorDiaria.setText(val);
+          
        
           txtNQuarto.setEnabled(false); 
           txtValorDiaria.setEnabled(true);
           txtValorDiaria.requestFocus();
+          rdbCasal.setEnabled(true);
+          rdbSolteiro.setEnabled(true);
+          
+          
           
           btnConsultar.setEnabled(false);
           btnInserir.setEnabled(false);
@@ -247,6 +238,20 @@ public class CadastroQuarto extends javax.swing.JFrame {
        }    
        
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+          conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
+        daoQuarto = new DaoQuarto(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+          conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
 
 
@@ -261,9 +266,11 @@ public class CadastroQuarto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelValorDCadastroQuarto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton rdbCasal;
+    private javax.swing.JRadioButton rdbSolteiro;
     private javax.swing.JTextField txtNQuarto;
     private javax.swing.JTextField txtValorDiaria;
     // End of variables declaration//GEN-END:variables
+
     private Conexao conexao=null;
     private DaoQuarto daoQuarto=null;
     private Quarto quarto=null;
