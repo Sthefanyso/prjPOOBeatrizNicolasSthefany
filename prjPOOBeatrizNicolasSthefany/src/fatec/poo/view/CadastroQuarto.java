@@ -10,7 +10,7 @@ import fatec.poo.control.DaoQuarto;
 import fatec.poo.model.Quarto;
 /**
  *
- * @author orion
+ * @author Sthefany, Nicolas e Beatriz
  */
 public class CadastroQuarto extends javax.swing.JFrame {
 

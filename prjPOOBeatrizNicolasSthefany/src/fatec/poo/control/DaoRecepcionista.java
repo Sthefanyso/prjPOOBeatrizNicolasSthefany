@@ -23,7 +23,7 @@ public class DaoRecepcionista {
         PreparedStatement ps = null;
         
         try{
-            ps = conn.prepareStatement("INSERT INTO tbrecepcionista(regFunc, nome_recepcionista, endereco_recepcionista, telefone_recepcionista, turno) VALUES(?, ?, ?, ?, ?)");
+            ps = conn.prepareStatement("INSERT INTO tbrecepcionista(regFunc, nome, endereco, telefone, turno) VALUES(?, ?, ?, ?, ?)");
             
             ps.setInt(1, recepcionista.getRegFunc());
             ps.setString(2, recepcionista.getNome());
@@ -40,7 +40,7 @@ public class DaoRecepcionista {
      public void alterar(Recepcionista recepcionista){
         PreparedStatement ps = null;
         try{
-            ps = conn.prepareStatement("UPDATE tbrecepcionista set nome_recepcionista = ?, endereco_recepcionista = ?, telefone_recepcionista = ?, turno = ?" + 
+            ps = conn.prepareStatement("UPDATE tbrecepcionista set nome = ?, endereco = ?, telefone = ?, turno = ?" + 
                     
             "where regFunc= ?");
            
@@ -65,13 +65,16 @@ public class DaoRecepcionista {
         try{
             ps = conn.prepareStatement("SELECT * from tbRecepcionista where " + 
                     
-             "where regFunc= ?");
+             " regFunc= ?");
             
             ps.setInt(1, regFunc);
             ResultSet rs = ps.executeQuery();
             
             if(rs.next()==true){
-                r = new Recepcionista(regFunc, rs.getString("nome_recepcionista"));
+                r = new Recepcionista(regFunc, rs.getString("nome"));
+                r.setEndereco(rs.getString("endereco"));
+                r.setTelefone(rs.getString("telefone"));
+                r.setTurno(rs.getString("turno"));
             }
         }
         catch(SQLException ex){

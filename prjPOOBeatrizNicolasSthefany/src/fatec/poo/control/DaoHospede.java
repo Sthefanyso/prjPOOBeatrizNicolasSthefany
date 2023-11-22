@@ -74,7 +74,6 @@ public class DaoHospede {
                 h.setEndereco(rs.getString("endereco_hospede"));
                 h.setTelefone(rs.getString("telefone_hospede"));
                 h.setTaxaDesconto(rs.getDouble("taxaDesconto"));
-                h = new Hospede(rs.getString("nome_hospede"),cpf);
             }
         }
         catch(SQLException ex){
