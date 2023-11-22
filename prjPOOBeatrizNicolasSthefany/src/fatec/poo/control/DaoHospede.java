@@ -21,7 +21,7 @@ public class DaoHospede {
         PreparedStatement ps = null;
         
         try{
-            ps = conn.prepareStatement("INSERT INTO tbhospede(cpf, nome_hospede, endereco_hospede, telefone_hospede, turno) VALUES(?, ?, ?, ?, ?)");
+            ps = conn.prepareStatement("INSERT INTO tbhospede(cpf, nome_hospede, endereco_hospede, telefone_hospede, taxaDesconto) VALUES(?, ?, ?, ?, ?)");
             
             ps.setString(1, hospede.getCpf());
             ps.setString(2, hospede.getNome());
@@ -74,7 +74,6 @@ public class DaoHospede {
                 h.setEndereco(rs.getString("endereco_hospede"));
                 h.setTelefone(rs.getString("telefone_hospede"));
                 h.setTaxaDesconto(rs.getDouble("taxaDesconto"));
-                h = new Hospede(rs.getString("nome_hospede"),cpf);
             }
         }
         catch(SQLException ex){

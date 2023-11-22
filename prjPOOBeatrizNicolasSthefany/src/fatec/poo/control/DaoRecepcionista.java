@@ -23,7 +23,7 @@ public class DaoRecepcionista {
         PreparedStatement ps = null;
         
         try{
-            ps = conn.prepareStatement("INSERT INTO tbrecepcionista(regFunc, nome_recepcionista, endereco_recepcionista, telefone_recepcionista, turno) VALUES(?, ?, ?, ?, ?)");
+            ps = conn.prepareStatement("INSERT INTO tbrecepcionista(regFunc, nome, endereco, telefone, turno) VALUES(?, ?, ?, ?, ?)");
             
             ps.setInt(1, recepcionista.getRegFunc());
             ps.setString(2, recepcionista.getNome());
