@@ -281,7 +281,7 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
        else{
           txtNome.setText(recepcionista.getNome());
           txtEndereco.setText(recepcionista.getEndereco());
-          txtTelefone.setText(recepcionista.getTurno());
+          txtTelefone.setText(recepcionista.getTelefone());
           
            if(rdbManha.isSelected()){
                recepcionista.setTurno("Manhã");
@@ -293,15 +293,6 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
                recepcionista.setTurno("Noite");
            }
            
-           if(recepcionista.getTurno().equals("Manhã")){
-                rdbManha.setSelected(true);
-           }
-           if(recepcionista.getTurno().equals("Tarde")){
-                rdbTarde.setSelected(true);
-           }
-           if(recepcionista.getTurno().equals("Noite")){
-                rdbNoite.setSelected(true);
-           }
        
           txtRegFuncional.setEnabled(false); 
           txtNome.setEnabled(true);
