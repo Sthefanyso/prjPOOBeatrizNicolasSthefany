@@ -224,8 +224,7 @@ public class CadastroHospede extends javax.swing.JFrame {
        if(validarCPF(jtxtCPF.getText())){
        if (hospede == null){
            jtxtCPF.setEnabled(false);
-           txtNome.setEnabled(true);
-           txtNome.requestFocus();
+           txtNome.setEnabled(true);           txtNome.requestFocus();
            txtEndereco.setEnabled(true);
            txtTelefone.setEnabled(true);
            txtTaxa.setEnabled(true);
