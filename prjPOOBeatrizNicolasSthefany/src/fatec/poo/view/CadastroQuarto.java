@@ -5,6 +5,9 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoQuarto;
+import fatec.poo.model.Quarto;
 /**
  *
  * @author orion
@@ -31,7 +34,7 @@ public class CadastroQuarto extends javax.swing.JFrame {
         jLabelNCadastroQuarto = new javax.swing.JLabel();
         jLabelValorDCadastroQuarto = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        rdbSolteito = new javax.swing.JRadioButton();
+        javax.swing.JRadioButton rdbSolteito = new javax.swing.JRadioButton();
         rdbCasal = new javax.swing.JRadioButton();
         txtNQuarto = new javax.swing.JTextField();
         txtValorDiaria = new javax.swing.JTextField();
@@ -93,10 +96,20 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -171,6 +184,22 @@ public class CadastroQuarto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+  
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+        conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
+        daoQuarto = new DaoQuarto(conexao.conectar());
+    }                                 
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+        conexao.fecharConexao();
+        dispose();
+    }                                  
+    
     private void rdbSolteitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSolteitoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbSolteitoActionPerformed
@@ -182,6 +211,42 @@ public class CadastroQuarto extends javax.swing.JFrame {
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+       
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        quarto = null;
+        quarto = daoQuarto.consultar(Integer. parseInt(txtNQuarto.getText()));
+       
+       if (quarto == null){
+           txtNQuarto.setEnabled(false);
+           txtValorDiaria.setEnabled(true);
+           txtValorDiaria.requestFocus();
+           
+           
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       else{
+          String val = Double.toString(quarto.getValorDiaria());
+          txtValorDiaria.setText(val);
+       
+          txtNQuarto.setEnabled(false); 
+          txtValorDiaria.setEnabled(true);
+          txtValorDiaria.requestFocus();
+          
+          btnConsultar.setEnabled(false);
+          btnInserir.setEnabled(false);
+          btnAlterar.setEnabled(true);
+          btnExcluir.setEnabled(true);
+       }    
+       
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
 
 
@@ -196,8 +261,10 @@ public class CadastroQuarto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelValorDCadastroQuarto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton rdbCasal;
-    private javax.swing.JRadioButton rdbSolteito;
     private javax.swing.JTextField txtNQuarto;
     private javax.swing.JTextField txtValorDiaria;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao=null;
+    private DaoQuarto daoQuarto=null;
+    private Quarto quarto=null;
 }
