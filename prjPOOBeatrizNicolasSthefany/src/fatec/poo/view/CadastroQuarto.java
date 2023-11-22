@@ -197,6 +197,19 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
   
     
+
+
+                  
+    
+    private void rdbSolteitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSolteitoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbSolteitoActionPerformed
+
+    private void txtValorDiariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorDiariaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorDiariaActionPerformed
+
+
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
