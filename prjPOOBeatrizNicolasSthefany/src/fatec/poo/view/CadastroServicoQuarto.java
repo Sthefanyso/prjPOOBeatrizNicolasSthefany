@@ -173,6 +173,7 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        try{
         servicoQuarto = null;
         servicoQuarto = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
        
@@ -201,7 +202,12 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
           btnInserir.setEnabled(false);
           btnAlterar.setEnabled(true);
           btnExcluir.setEnabled(true);
-       }    
+       }
+           }catch(NumberFormatException e){
+            txtCodigo.requestFocus();
+            JOptionPane.showMessageDialog(null, "Digite um valor numérico.", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+           
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

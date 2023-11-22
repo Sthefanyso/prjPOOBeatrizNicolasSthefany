@@ -257,7 +257,8 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-       recepcionista = null;
+       try{
+        recepcionista = null;
        recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtRegFuncional.getText()));
        
        if (recepcionista == null){
@@ -310,6 +311,10 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
                    
            }
        }    
+        }catch(NumberFormatException e){
+            txtRegFuncional.requestFocus();
+            JOptionPane.showMessageDialog(null, "Digite um valor numérico.", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
      
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -417,12 +422,11 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-<<<<<<< HEAD
+
         conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
-=======
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\Atualizado\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+        
                 
->>>>>>> ffc2180f0a466d4c49b1790a632759148a892815
+
                 
         daoRecepcionista = new DaoRecepcionista(conexao.conectar());    }//GEN-LAST:event_formWindowOpened
 

@@ -217,6 +217,7 @@ public class CadastroHospede extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtCPFActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       
        hospede = null;
        hospede = daoHospede.consultar(jtxtCPF.getText());
        
@@ -293,7 +294,7 @@ public class CadastroHospede extends javax.swing.JFrame {
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         //é necessário inserir manualmente caminho para o bd aqui, assim como foi feito em aula!!
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\Atualizado\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
                 
         daoHospede = new DaoHospede(conexao.conectar());                               
     }//GEN-LAST:event_formWindowOpened

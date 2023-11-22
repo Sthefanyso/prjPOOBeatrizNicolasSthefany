@@ -241,8 +241,15 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         
+        try{
         quarto = null;
         quarto = daoQuarto.consultar(Integer. parseInt(txtNQuarto.getText()));
+        
+        
+            
+        
+            
+        
         
        if (quarto == null){
            
@@ -292,6 +299,10 @@ public class CadastroQuarto extends javax.swing.JFrame {
           btnAlterar.setEnabled(true);
           btnExcluir.setEnabled(true);
        }    
+        }catch(NumberFormatException e){
+            txtNQuarto.requestFocus();
+            JOptionPane.showMessageDialog(null, "Digite um valor numérico.", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
        
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -335,6 +346,8 @@ public class CadastroQuarto extends javax.swing.JFrame {
         
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -353,6 +366,8 @@ public class CadastroQuarto extends javax.swing.JFrame {
         
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
     }
 
