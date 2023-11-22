@@ -27,5 +27,9 @@ public class ServicoQuarto {
     public double getValor() {
         return valor;
     }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
         
 }

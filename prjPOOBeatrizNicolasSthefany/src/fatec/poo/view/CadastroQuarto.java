@@ -8,9 +8,12 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoQuarto;
 import fatec.poo.model.Quarto;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 /**
  *
- * @author orion
+ * @author Sthefany, Nicolas e Beatriz
  */
 public class CadastroQuarto extends javax.swing.JFrame {
 
@@ -91,11 +94,6 @@ public class CadastroQuarto extends javax.swing.JFrame {
         );
 
         txtValorDiaria.setEnabled(false);
-        txtValorDiaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorDiariaActionPerformed(evt);
-            }
-        });
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
@@ -117,6 +115,11 @@ public class CadastroQuarto extends javax.swing.JFrame {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
@@ -129,6 +132,11 @@ public class CadastroQuarto extends javax.swing.JFrame {
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,23 +197,43 @@ public class CadastroQuarto extends javax.swing.JFrame {
 
   
     
-    private void txtValorDiariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorDiariaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorDiariaActionPerformed
-
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-       
+           String tipo = null;
+           if(rdbSolteiro.isSelected()){
+              tipo = "S";
+           }
+           if(rdbCasal.isSelected()){
+               tipo = "D";
+           }
+        quarto = new Quarto(Integer.parseInt(txtNQuarto.getText()),tipo,Double.parseDouble(txtValorDiaria.getText()));
+ 
+        daoQuarto.inserir(quarto);
+         txtNQuarto.setText("");
+        txtValorDiaria.setText("");    
+        
+        txtNQuarto.setEnabled(true);
+        txtValorDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        rdbSolteiro.setSelected(true);
+        txtNQuarto.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        
         quarto = null;
         quarto = daoQuarto.consultar(Integer. parseInt(txtNQuarto.getText()));
-       
+        
        if (quarto == null){
+           
+           
            txtNQuarto.setEnabled(false);
            txtValorDiaria.setEnabled(true);
            txtValorDiaria.requestFocus();
@@ -221,6 +249,21 @@ public class CadastroQuarto extends javax.swing.JFrame {
        else{
           String val = Double.toString(quarto.getValorDiaria());
           txtValorDiaria.setText(val);
+         
+          switch(quarto.getTipo()) {
+               case "S":
+
+                   rdbSolteiro.setSelected(true);
+                   rdbCasal.setSelected(false);
+
+                   break;
+               case "D":
+                   rdbCasal.setSelected(true);
+                   rdbSolteiro.setSelected(false);
+
+                   break;
+           }
+       
           
        
           txtNQuarto.setEnabled(false); 
@@ -253,6 +296,52 @@ public class CadastroQuarto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+           String tipo = null;
+           if(rdbSolteiro.isSelected()){
+              tipo = "S";
+           }
+           if(rdbCasal.isSelected()){
+               tipo = "D";
+           }
+           quarto.setValorDiaria(Double.parseDouble(txtValorDiaria.getText()));
+           quarto.setTipo(tipo);
+           daoQuarto.alterar(quarto);
+        } 
+        
+         txtNQuarto.setText("");
+        txtValorDiaria.setText("");    
+        
+        txtNQuarto.setEnabled(true);
+        txtValorDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        rdbSolteiro.setSelected(true);
+        txtNQuarto.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoQuarto.excluir(quarto); 
+            
+        txtNQuarto.setText("");
+        txtValorDiaria.setText("");    
+        
+        txtNQuarto.setEnabled(true);
+        txtValorDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        rdbSolteiro.setSelected(true);
+        txtNQuarto.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

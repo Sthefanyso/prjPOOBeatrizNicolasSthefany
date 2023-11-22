@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
@@ -246,6 +241,7 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
            servicoQuarto.setValor(Double.parseDouble(txtValor.getText()));
+           servicoQuarto.setDescricao(cbxDescricao.getSelectedItem().toString());
            daoServicoQuarto.alterar(servicoQuarto);
         } 
         

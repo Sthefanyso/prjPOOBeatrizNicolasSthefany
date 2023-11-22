@@ -52,6 +52,14 @@ public class Quarto {
     public double getTotalFaturado() {
         return totalFaturado;
     }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setValorDiaria(double valorDiaria) {
+        this.valorDiaria = valorDiaria;
+    }
     
     
 }
