@@ -136,11 +136,13 @@ public class CadastroServicoQuarto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-      private void formWindowOpened(java.awt.event.WindowEvent evt) {                                  
+      private void formWindowOpened(java.awt.event.WindowEvent evt) {                              
+          
         conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\Fatec\\Documents\\Fatec_2023_1\\Itu\\POO\\Exemplos\\prjExemploDaoAccess\\src\\fatec\\poo\\basedados\\dbEmpresa.accdb");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\Atualizado\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
                 
         daoServicoQuarto = new DaoServicoQuarto(conexao.conectar());
     }                              

@@ -282,17 +282,6 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
           txtNome.setText(recepcionista.getNome());
           txtEndereco.setText(recepcionista.getEndereco());
           txtTelefone.setText(recepcionista.getTelefone());
-          
-           if(rdbManha.isSelected()){
-               recepcionista.setTurno("Manhã");
-           }
-           if(rdbTarde.isSelected()){
-               recepcionista.setTurno("Tarde");
-           }
-           if(rdbNoite.isSelected()){
-               recepcionista.setTurno("Noite");
-           }
-           
        
           txtRegFuncional.setEnabled(false); 
           txtNome.setEnabled(true);
@@ -307,20 +296,48 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
           btnInserir.setEnabled(false);
           btnAlterar.setEnabled(true);
           btnExcluir.setEnabled(true);
+          
+               switch (recepcionista.getTurno()) {
+               case "M":          
+                   rdbManha.setSelected(true);
+                   break;
+               case "T":
+                   rdbTarde.setSelected(true);
+                   break;
+               case "N":
+                   rdbNoite.setSelected(true);
+                   break;
+                   
+           }
        }    
      
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         recepcionista = new Recepcionista(Integer.parseInt(txtRegFuncional.getText()), txtNome.getText());
         recepcionista.setEndereco(txtEndereco.getText());
         recepcionista.setTelefone(txtTelefone.getText());
+        
+           if(rdbManha.isSelected()){
+               recepcionista.setTurno("M");
+           }
+           if(rdbTarde.isSelected()){
+               recepcionista.setTurno("T");
+           }
+           if(rdbNoite.isSelected()){
+               recepcionista.setTurno("N");
+           }
         daoRecepcionista.inserir(recepcionista);
+        
+
          
         txtRegFuncional.setText("");
         txtNome.setText("");    
         txtEndereco.setText("");      
-        txtTelefone.setText("");      
+        txtTelefone.setText("");        
+        rdbManha.setSelected(true);
+        
               
         btnInserir.setEnabled(false);
         txtRegFuncional.setEnabled(true);
@@ -328,6 +345,9 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         txtRegFuncional.requestFocus();
         txtEndereco.setEnabled(false);
         txtTelefone.setEnabled(false);
+                  rdbManha.setEnabled(false);
+          rdbTarde.setEnabled(false);
+          rdbNoite.setEnabled(false);
         
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -339,6 +359,15 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
            recepcionista.setNome(txtNome.getText());
            recepcionista.setEndereco(txtEndereco.getText());
            recepcionista.setTelefone(txtTelefone.getText());
+            if(rdbManha.isSelected()){
+               recepcionista.setTurno("M");
+           }
+           if(rdbTarde.isSelected()){
+               recepcionista.setTurno("T");
+           }
+           if(rdbNoite.isSelected()){
+               recepcionista.setTurno("N");
+           }
            daoRecepcionista.alterar(recepcionista);
         } 
         
@@ -346,6 +375,7 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         txtNome.setText("");
         txtEndereco.setText("");
         txtTelefone.setText("");
+        rdbManha.setSelected(true);
         txtRegFuncional.setEnabled(true); 
         txtNome.setEnabled(false);
         txtEndereco.setEnabled(false);
@@ -354,6 +384,9 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
+          rdbManha.setEnabled(false);
+          rdbTarde.setEnabled(false);
+          rdbNoite.setEnabled(false);
         btnExcluir.setEnabled(false);    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -364,12 +397,18 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
             txtNome.setText("");
             txtEndereco.setText("");
             txtTelefone.setText("");
+            rdbManha.setSelected(true);
             txtRegFuncional.setEnabled(true); 
             txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
             txtRegFuncional.requestFocus();
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(false);
+            rdbManha.setEnabled(false);
+            rdbTarde.setEnabled(false);
+            rdbNoite.setEnabled(false);
             btnExcluir.setEnabled(false);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -378,7 +417,8 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\Sthefany\\Desktop\\Sthefany\\faculdade\\poo\\projpoo\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\Atualizado\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
                 
         daoRecepcionista = new DaoRecepcionista(conexao.conectar());    }//GEN-LAST:event_formWindowOpened
 

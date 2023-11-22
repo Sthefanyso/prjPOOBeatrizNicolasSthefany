@@ -190,8 +190,8 @@ public class CadastroQuarto extends javax.swing.JFrame {
         conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
-                
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\POO\\Atualizado\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                   
         daoQuarto = new DaoQuarto(conexao.conectar());
     }                                 
 
