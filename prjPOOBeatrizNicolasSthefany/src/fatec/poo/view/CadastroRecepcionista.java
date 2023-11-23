@@ -423,10 +423,7 @@ public class CadastroRecepcionista extends javax.swing.JFrame {
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
 
-        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\orion\\Downloads\\TrabalhoPOO_03\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
-        
-                
-
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\Sthefany\\Desktop\\Sthefany\\faculdade\\poo\\projpoo\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
                 
         daoRecepcionista = new DaoRecepcionista(conexao.conectar());    }//GEN-LAST:event_formWindowOpened
 
