@@ -17,7 +17,22 @@ public class DaoRegistro {
          this.conn = conn;
     }
     
-
+     public void inserir(Registro registro){
+        PreparedStatement ps = null;
+        
+        try{
+            ps = conn.prepareStatement("INSERT INTO tbregistro(codigo, valorHospedagem) VALUES(?, ?)");
+            
+            ps.setInt(1, registro.getCodigo());
+            ps.setDouble(2, registro.getValorHospedagem());
+            
+            
+            ps.execute();            
+        } catch(SQLException ex){
+            System.out.println(ex.toString());
+        }
+    }
+    
     
     
 }
