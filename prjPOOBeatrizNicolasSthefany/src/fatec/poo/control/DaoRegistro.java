@@ -4,6 +4,7 @@ package fatec.poo.control;
 import fatec.poo.model.Registro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -32,7 +33,62 @@ public class DaoRegistro {
             System.out.println(ex.toString());
         }
     }
+     
+    public void alterar(Registro registro){
+        PreparedStatement ps = null;
+        try{
+            ps = conn.prepareStatement("UPDATE tbregistro set valorHospedagem = ? " + 
+                    
+            "where codigo= ?");
+           
+            ps.setDouble(1, registro.getValorHospedagem());
+      
+            
+            ps.execute();
+        }
+        catch(SQLException ex){
+            System.out.println(ex.toString());
+        }
+    } 
     
+    public Registro consultar(Integer codigo){
+        Registro r = null;
+        PreparedStatement ps = null;
+        
+        
+        try{
+            ps = conn.prepareStatement("SELECT * from tbregistro " + 
+                    
+             "where codigo= ?");
+            
+            ps.setInt(1, codigo);
+            ResultSet rs = null;
+            rs = ps.executeQuery();
+            
+            if(rs.next()==true){
+             
+            }
+        }
+        catch(SQLException ex){
+            System.out.println(ex.toString());
+        }
+        
+        return(r);
+    }
     
+      public void excluir(Registro registro){
+        PreparedStatement ps = null;
+        try{
+            ps = conn.prepareStatement("DELETE FROM tbregistro where codigo = ?");
+            
+            ps.setInt(1, registro.getCodigo());
+            ps.execute();
+        }
+        catch(SQLException ex){
+            System.out.println(ex.toString());
+        
+        }
+        
+      }
     
 }
