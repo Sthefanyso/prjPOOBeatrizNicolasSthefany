@@ -36,13 +36,13 @@
                   <Component id="jLabelValorHosp" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="ftxtDataEntrada" alignment="0" pref="140" max="32767" attributes="0"/>
+                          <Component id="txtDataEntrada" alignment="0" pref="140" max="32767" attributes="0"/>
                           <Component id="txtNumQuarto" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="ftxtDataSaida" alignment="1" max="32767" attributes="0"/>
-                          <Component id="ftxtHospede" max="32767" attributes="0"/>
+                          <Component id="txtDataSaida" alignment="1" max="32767" attributes="0"/>
+                          <Component id="txtHospede" max="32767" attributes="0"/>
                           <Component id="txtCodigo" alignment="0" pref="140" max="32767" attributes="0"/>
                           <Component id="txtRegFuncional" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -57,23 +57,29 @@
                           <Group type="102" attributes="0">
                               <Component id="btnSituacaoQuarto" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblSituacaoQuarto" min="-2" pref="140" max="-2" attributes="0"/>
+                              <Component id="txtSituacaoQuarto" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblRegistroFunc" alignment="0" pref="240" max="32767" attributes="0"/>
-                          <Component id="lblCPFHospede" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtRegFunc" alignment="0" pref="240" max="32767" attributes="0"/>
+                          <Component id="txtCPFHospede" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace pref="86" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="lblValorHospedagem" min="-2" pref="113" max="-2" attributes="0"/>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
-                      <Component id="btnReservar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnLiberar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnSair" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtValorHospedagem" min="-2" pref="113" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnConsultar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnReservar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnLiberar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnSair" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,14 +96,14 @@
                   <Component id="jLabelRegistroFunc" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="txtRegFuncional" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegistroFunc" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblRegistroFunc" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="txtRegFunc" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="jLabelCPFHospede" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnHospede" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblCPFHospede" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="ftxtHospede" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCPFHospede" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="txtHospede" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
@@ -105,27 +111,31 @@
                   <Component id="txtNumQuarto" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabelSituacao" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSituacaoQuarto" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblSituacaoQuarto" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="txtSituacaoQuarto" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelDataEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ftxtDataEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDataEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelDataSaida" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ftxtDataSaida" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDataSaida" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="jLabelValorHosp" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblValorHospedagem" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="txtValorHospedagem" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="btnReservar" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSair" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnLiberar" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConsultar" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -184,17 +194,17 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtDataEntrada">
+    <Component class="javax.swing.JFormattedTextField" name="txtDataEntrada">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtDataSaida">
+    <Component class="javax.swing.JFormattedTextField" name="txtDataSaida">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblValorHospedagem">
+    <Component class="javax.swing.JLabel" name="txtValorHospedagem">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -235,7 +245,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblCPFHospede">
+    <Component class="javax.swing.JLabel" name="txtCPFHospede">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -244,7 +254,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblRegistroFunc">
+    <Component class="javax.swing.JLabel" name="txtRegFunc">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -253,7 +263,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblSituacaoQuarto">
+    <Component class="javax.swing.JLabel" name="txtSituacaoQuarto">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -300,10 +310,25 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtHospede">
+    <Component class="javax.swing.JFormattedTextField" name="txtHospede">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnConsultar">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/fatec/poo/view/icon/pesq.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Consultar"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

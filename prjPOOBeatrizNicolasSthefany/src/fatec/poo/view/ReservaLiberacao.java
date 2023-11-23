@@ -1,8 +1,12 @@
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoRegistro;
+import fatec.poo.model.Registro;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /*
@@ -44,20 +48,21 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         txtRegFuncional = new javax.swing.JTextField();
         txtNumQuarto = new javax.swing.JTextField();
-        ftxtDataEntrada = new javax.swing.JFormattedTextField();
-        ftxtDataSaida = new javax.swing.JFormattedTextField();
-        lblValorHospedagem = new javax.swing.JLabel();
+        txtDataEntrada = new javax.swing.JFormattedTextField();
+        txtDataSaida = new javax.swing.JFormattedTextField();
+        txtValorHospedagem = new javax.swing.JLabel();
         btnRegistroFunc = new javax.swing.JButton();
         btnHospede = new javax.swing.JButton();
         jLabelSituacao = new javax.swing.JLabel();
         btnSituacaoQuarto = new javax.swing.JButton();
-        lblCPFHospede = new javax.swing.JLabel();
-        lblRegistroFunc = new javax.swing.JLabel();
-        lblSituacaoQuarto = new javax.swing.JLabel();
+        txtCPFHospede = new javax.swing.JLabel();
+        txtRegFunc = new javax.swing.JLabel();
+        txtSituacaoQuarto = new javax.swing.JLabel();
         btnReservar = new javax.swing.JButton();
         btnLiberar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        ftxtHospede = new javax.swing.JFormattedTextField();
+        txtHospede = new javax.swing.JFormattedTextField();
+        btnConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Hospedagem");
@@ -91,11 +96,11 @@ public class ReservaLiberacao extends javax.swing.JFrame {
 
         txtNumQuarto.setEnabled(false);
 
-        ftxtDataEntrada.setEnabled(false);
+        txtDataEntrada.setEnabled(false);
 
-        ftxtDataSaida.setEnabled(false);
+        txtDataSaida.setEnabled(false);
 
-        lblValorHospedagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtValorHospedagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnRegistroFunc.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistroFunc.setText("...");
@@ -111,11 +116,11 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         btnSituacaoQuarto.setText("...");
         btnSituacaoQuarto.setEnabled(false);
 
-        lblCPFHospede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtCPFHospede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblRegistroFunc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtRegFunc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblSituacaoQuarto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtSituacaoQuarto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnReservar.setBackground(new java.awt.Color(255, 255, 255));
         btnReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
@@ -136,7 +141,17 @@ public class ReservaLiberacao extends javax.swing.JFrame {
             }
         });
 
-        ftxtHospede.setEnabled(false);
+        txtHospede.setEnabled(false);
+
+        btnConsultar.setBackground(new java.awt.Color(255, 255, 255));
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
+        btnConsultar.setText("Consultar");
+        btnConsultar.setEnabled(false);
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,13 +168,13 @@ public class ReservaLiberacao extends javax.swing.JFrame {
                     .addComponent(jLabelDataSaida)
                     .addComponent(jLabelValorHosp))
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ftxtDataEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                             .addComponent(txtNumQuarto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ftxtDataSaida)
-                            .addComponent(ftxtHospede)
+                            .addComponent(txtDataSaida)
+                            .addComponent(txtHospede)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                             .addComponent(txtRegFuncional, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -172,18 +187,23 @@ public class ReservaLiberacao extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblRegistroFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                            .addComponent(lblCPFHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtRegFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtCPFHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(86, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(btnReservar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLiberar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSair)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addComponent(txtValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConsultar)
+                .addGap(18, 18, 18)
+                .addComponent(btnReservar)
+                .addGap(18, 18, 18)
+                .addComponent(btnLiberar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSair)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,36 +217,39 @@ public class ReservaLiberacao extends javax.swing.JFrame {
                     .addComponent(jLabelRegistroFunc)
                     .addComponent(txtRegFuncional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistroFunc)
-                    .addComponent(lblRegistroFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabelCPFHospede)
                     .addComponent(btnHospede)
-                    .addComponent(lblCPFHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftxtHospede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCPFHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHospede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabelNumQuarto)
                     .addComponent(txtNumQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelSituacao)
                     .addComponent(btnSituacaoQuarto)
-                    .addComponent(lblSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDataEntrada)
-                    .addComponent(ftxtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDataSaida)
-                    .addComponent(ftxtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabelValorHosp)
-                    .addComponent(lblValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnReservar)
                     .addComponent(btnSair)
-                    .addComponent(btnLiberar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(btnLiberar)
+                    .addComponent(btnConsultar))
+                .addContainerGap())
         );
 
         pack();
@@ -236,9 +259,9 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         try {
             MaskFormatter dataFormat = new MaskFormatter("##/##/####");
             MaskFormatter CpfFormat = new MaskFormatter("###.###.###-##");
-            dataFormat.install(ftxtDataSaida);
-            dataFormat.install(ftxtDataEntrada);
-            CpfFormat.install(ftxtHospede);
+            dataFormat.install(txtDataSaida);
+            dataFormat.install(txtDataEntrada);
+            CpfFormat.install(txtHospede);
         } catch (ParseException ex) {
         }
     }
@@ -254,16 +277,19 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRegFuncionalActionPerformed
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       
+        
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnHospede;
     private javax.swing.JButton btnLiberar;
     private javax.swing.JButton btnRegistroFunc;
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSituacaoQuarto;
-    private javax.swing.JFormattedTextField ftxtDataEntrada;
-    private javax.swing.JFormattedTextField ftxtDataSaida;
-    private javax.swing.JFormattedTextField ftxtHospede;
     private javax.swing.JLabel jLabelCPFHospede;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelDataEntrada;
@@ -272,12 +298,19 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRegistroFunc;
     private javax.swing.JLabel jLabelSituacao;
     private javax.swing.JLabel jLabelValorHosp;
-    private javax.swing.JLabel lblCPFHospede;
-    private javax.swing.JLabel lblRegistroFunc;
-    private javax.swing.JLabel lblSituacaoQuarto;
-    private javax.swing.JLabel lblValorHospedagem;
+    private javax.swing.JLabel txtCPFHospede;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JFormattedTextField txtDataEntrada;
+    private javax.swing.JFormattedTextField txtDataSaida;
+    private javax.swing.JFormattedTextField txtHospede;
     private javax.swing.JTextField txtNumQuarto;
+    private javax.swing.JLabel txtRegFunc;
     private javax.swing.JTextField txtRegFuncional;
+    private javax.swing.JLabel txtSituacaoQuarto;
+    private javax.swing.JLabel txtValorHospedagem;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao=null;
+    private DaoRegistro daoRegistro=null;
+    private Registro registro=null;
+
 }
