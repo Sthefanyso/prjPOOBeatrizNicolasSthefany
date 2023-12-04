@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +16,13 @@ import javax.swing.JOptionPane;
  */
 public class DaoRegistro {
     private Connection conn;
+    private Conexao conexao=null;
+    private DaoRecepcionista daoRecepcionista = null; 
+    private Recepcionista rec;
+    private Hospede hosp = null;
+    private    Quarto quarto = null;
+    private DaoHospede daoHospede = null;
+    private DaoQuarto daoQuarto = null;
     
     public DaoRegistro(Connection conn) {
          this.conn = conn;
@@ -45,12 +51,6 @@ public class DaoRegistro {
     
     public Registro consultar(Integer codigo){
         Registro reg = null;
-        Recepcionista rec;
-        Hospede hosp = null;
-        Quarto quarto = null;
-        DaoHospede daoHospede = null;
-        DaoRecepcionista daoRecepcionista = null;
-        DaoQuarto daoQuarto=null;
         PreparedStatement ps = null;
         
         
@@ -69,8 +69,18 @@ public class DaoRegistro {
              LocalDate dtDataEntrada = LocalDate.parse(rs.getString("dataEntrada"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
              LocalDate dtDataSaida = LocalDate.parse(rs.getString("dataSaida"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
              
-             rec = null;       
-             rec = daoRecepcionista.consultar(rs.getInt("RegFuncRecepcionista"));
+             conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+             
+             daoRecepcionista = new DaoRecepcionista(conexao.conectar());
+             daoQuarto = new DaoQuarto(conexao.conectar());
+             daoHospede = new DaoHospede(conexao.conectar());  
+             
+             rec = null; 
+             int regFunc = rs.getInt("RegFuncRecepcionista");
+             rec = daoRecepcionista.consultar(regFunc);
              hosp = daoHospede.consultar(rs.getString("CPFHospede"));
             quarto = daoQuarto.consultar(rs.getInt("NumeroQuarto"));
             reg = new Registro(codigo,dtDataEntrada, rec);
