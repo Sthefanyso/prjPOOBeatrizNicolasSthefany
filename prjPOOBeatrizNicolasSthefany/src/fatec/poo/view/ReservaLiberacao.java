@@ -5,9 +5,13 @@ import fatec.poo.control.DaoHospede;
 import fatec.poo.control.DaoQuarto;
 import fatec.poo.control.DaoRecepcionista;
 import fatec.poo.control.DaoRegistro;
+import fatec.poo.model.Hospede;
+import fatec.poo.model.Quarto;
 import fatec.poo.model.Recepcionista;
 import fatec.poo.model.Registro;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -70,6 +74,14 @@ public class ReservaLiberacao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro Hospedagem");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabelCodigo.setText("Código");
 
@@ -155,7 +167,6 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         btnConsultar.setBackground(new java.awt.Color(255, 255, 255));
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
-        btnConsultar.setEnabled(false);
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
@@ -281,21 +292,85 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void txtRegFuncionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegFuncionalActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txtRegFuncionalActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        try{
+        registro = null;
+        //recepcionista = null;
+        //quarto = null;
+        //hospede = null;
+        registro = daoRegistro.consultar(Integer. parseInt(txtCodigo.getText()));
+        
+        if (registro == null){
+           txtCodigo.setEnabled(false);
+           txtRegFuncional.setEnabled(true);
+           txtRegFuncional.requestFocus();
+           txtHospede.setEnabled(true);
+           txtDataEntrada.setEnabled(true);
+           txtDataSaida.setEnabled(true);
+           txtValorHospedagem.setEnabled(true);
+           txtNumQuarto.setEnabled(true);
+
+ 
+           btnConsultar.setEnabled(false);
+           btnReservar.setEnabled(true);
+           btnLiberar.setEnabled(false);
+           
+  
+       }
+        
+       else{
+          txtCPFHospede.setText(registro.getHospede().getCpf());
+          txtRegFunc.setText(Integer.toString(registro.getRecepcionista().getRegFunc()));
+          txtNumQuarto.setText(Integer.toString(registro.getQuarto().getNumero()));
+          txtDataEntrada.setText(formatter.format(registro.getDataEntrada()));
+          txtDataSaida.setText(formatter.format(registro.getDataEntrada()));
        
+          txtRegFuncional.setEnabled(false); 
+          txtCPFHospede.setEnabled(true);
+          txtRegFuncional.requestFocus();
+          txtRegFuncional.setEnabled(true);
+          txtDataEntrada.setEnabled(true);
+          txtDataSaida.setEnabled(true);
+          
+          btnConsultar.setEnabled(false);
+          btnReservar.setEnabled(false);
+          btnLiberar.setEnabled(true);
+       
+        }
+        
+        }catch(NumberFormatException e){
+            txtCodigo.requestFocus();
+            JOptionPane.showMessageDialog(null, "Digite um valor numérico.", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        Recepcionista recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtRegFuncional.getText()));
-        if(recepcionista == null){
-            JOptionPane.showMessageDialog(null, ".", "Erro!", JOptionPane.ERROR_MESSAGE);
-        } else{
+     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+     LocalDate dtDataEntrada = LocalDate.parse(txtDataEntrada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+     //registro = new Registro(Integer.parseInt(txtCodigo.getText()),dtDataEntrada, recepcionista);
         
-        }    }//GEN-LAST:event_btnReservarActionPerformed
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+             
+               conexao = new Conexao("","");
+        
+        conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
+                
+        daoRegistro = new DaoRegistro(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        conexao.fecharConexao();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
@@ -327,6 +402,9 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     private Conexao conexao=null;
     private DaoRegistro daoRegistro=null;
     private Registro registro=null;
+    private Hospede hospede=null;
+    private Quarto quarto =null;
+    private Recepcionista recepcionista = null;
     private DaoRecepcionista daoRecepcionista=null;
     private DaoHospede daoHospede=null;
     private DaoQuarto daoQuarto=null;

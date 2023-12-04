@@ -64,10 +64,7 @@ public class Registro {
         this.quarto = q;
         h.addRegistro(this);
         this.quarto.reservar();
-        
-
-        
-    }
+      }
     
     public void addServicoQuarto(ServicoQuarto sq){
         servicoQuarto.add(sq);
