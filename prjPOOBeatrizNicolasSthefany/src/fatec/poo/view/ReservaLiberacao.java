@@ -152,6 +152,11 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         btnLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnLiberar.setText("Liberar");
         btnLiberar.setEnabled(false);
+        btnLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarActionPerformed(evt);
+            }
+        });
 
         btnSair.setBackground(new java.awt.Color(255, 255, 255));
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
@@ -371,6 +376,38 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         conexao.fecharConexao();
         dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
+            if (JOptionPane.showConfirmDialog(null, "Confirma Liberação?") == 0){
+            daoRegistro.excluir(registro); 
+            
+            txtCodigo.setText("");
+            txtRegFuncional.setText("");
+            txtRegFunc.setText("");
+            txtHospede.setText("");
+            txtCPFHospede.setText("");
+            txtNumQuarto.setText("");
+            txtSituacaoQuarto.setText("");
+            txtDataEntrada.setText("");
+            txtDataSaida.setText("");
+            txtValorHospedagem.setText("");
+
+            txtCodigo.setEnabled(true); 
+            txtRegFuncional.setEnabled(false);
+            txtRegFunc.setEnabled(false);
+            txtHospede.setEnabled(false);
+            txtCPFHospede.setEnabled(false);
+            txtNumQuarto.setEnabled(false);
+            txtSituacaoQuarto.setEnabled(false);
+            txtDataEntrada.setEnabled(false);
+            txtDataSaida.setEnabled(false);
+            txtValorHospedagem.setEnabled(false);
+            txtCodigo.requestFocus();
+            btnConsultar.setEnabled(true);
+            btnReservar.setEnabled(false);
+            btnLiberar.setEnabled(false);
+       
+    }    }//GEN-LAST:event_btnLiberarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
