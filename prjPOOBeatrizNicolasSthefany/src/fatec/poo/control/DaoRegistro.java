@@ -1,6 +1,4 @@
-
 package fatec.poo.control;
-
 import fatec.poo.model.Registro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,39 +20,26 @@ public class DaoRegistro {
         PreparedStatement ps = null;
         
         try{
-            ps = conn.prepareStatement("INSERT INTO tbregistro(codigo, valorHospedagem) VALUES(?, ?)");
+            ps = conn.prepareStatement("INSERT INTO tbregistro(codigo, regFuncRecepcionista, CPFHospede, dataEntrada, dataSaida, numeroQuarto, valorHospedagem, situacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             
             ps.setInt(1, registro.getCodigo());
-            ps.setDouble(2, registro.getValorHospedagem());
-            
+            ps.setInt(2,registro.getRecepcionista().getRegFunc());
+            ps.setString(3,registro.getHospede().getCpf());
+            ps.setInt(4, registro.getQuarto().getNumero());    
+            ps.setString(5, registro.getDataEntrada().toString());
+            ps.setString(6, registro.getDataSaida().toString());
+            ps.setDouble(7, registro.getValorHospedagem());
+            ps.setBoolean(8, registro.getQuarto().getSituacao());
             
             ps.execute();            
         } catch(SQLException ex){
             System.out.println(ex.toString());
         }
     }
-     
-    public void alterar(Registro registro){
-        PreparedStatement ps = null;
-        try{
-            ps = conn.prepareStatement("UPDATE tbregistro set valorHospedagem = ? " + 
-                    
-            "where codigo= ?");
-           
-            ps.setDouble(1, registro.getValorHospedagem());
-      
-            
-            ps.execute();
-        }
-        catch(SQLException ex){
-            System.out.println(ex.toString());
-        }
-    } 
     
     public Registro consultar(Integer codigo){
         Registro r = null;
-        PreparedStatement ps = null;
-        
+        PreparedStatement ps = null;   
         
         try{
             ps = conn.prepareStatement("SELECT * from tbregistro " + 

@@ -1,7 +1,11 @@
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoHospede;
+import fatec.poo.control.DaoQuarto;
+import fatec.poo.control.DaoRecepcionista;
 import fatec.poo.control.DaoRegistro;
+import fatec.poo.model.Recepcionista;
 import fatec.poo.model.Registro;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -126,6 +130,11 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         btnReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnReservar.setText("Reservar");
         btnReservar.setEnabled(false);
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         btnLiberar.setBackground(new java.awt.Color(255, 255, 255));
         btnLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
@@ -189,11 +198,9 @@ public class ReservaLiberacao extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtSituacaoQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtRegFunc, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                            .addComponent(txtCPFHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(86, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtCPFHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtValorHospedagem, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConsultar)
@@ -282,6 +289,14 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnConsultarActionPerformed
 
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        Recepcionista recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtRegFuncional.getText()));
+        if(recepcionista == null){
+            JOptionPane.showMessageDialog(null, ".", "Erro!", JOptionPane.ERROR_MESSAGE);
+        } else{
+        
+        }    }//GEN-LAST:event_btnReservarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnHospede;
@@ -312,5 +327,8 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     private Conexao conexao=null;
     private DaoRegistro daoRegistro=null;
     private Registro registro=null;
+    private DaoRecepcionista daoRecepcionista=null;
+    private DaoHospede daoHospede=null;
+    private DaoQuarto daoQuarto=null;
 
 }
