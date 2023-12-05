@@ -67,8 +67,9 @@ public class DaoRegistro {
                 
              DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
              LocalDate dtDataEntrada = LocalDate.parse(rs.getString("dataEntrada"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-             LocalDate dtDataSaida = LocalDate.parse(rs.getString("dataSaida"), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
              
+             
+             LocalDate dtDataSaida = null;
              conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -84,6 +85,14 @@ public class DaoRegistro {
              hosp = daoHospede.consultar(rs.getString("CPFHospede"));
             quarto = daoQuarto.consultar(rs.getInt("NumeroQuarto"));
             reg = new Registro(codigo,dtDataEntrada, rec);
+            
+          if(rs.getString("dataSaida")!=null){
+              dtDataSaida = LocalDate.parse(rs.              getString("dataSaida"),
+              DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                 
+           } else{
+          
+          dtDataSaida = null;}
             reg.setDataSaida(dtDataSaida);
             reg.reservarQuarto(hosp, quarto);
             }

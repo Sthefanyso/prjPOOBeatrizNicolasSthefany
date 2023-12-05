@@ -43,7 +43,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="txtDataEntrada" alignment="0" pref="140" max="32767" attributes="0"/>
+                          <Component id="txtDataEntrada" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtNumQuarto" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="txtDataSaida" alignment="1" max="32767" attributes="0"/>
                           <Component id="txtHospede" max="32767" attributes="0"/>
@@ -197,13 +197,27 @@
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtDataEntrada">
       <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format subtype="0" type="1"/>
+        </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDataEntradaFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtDataSaida">
       <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format subtype="0" type="1"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDataSaidaFocusGained"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataSaidaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtValorHospedagem">
       <Properties>

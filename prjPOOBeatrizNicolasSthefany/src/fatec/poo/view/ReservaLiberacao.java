@@ -12,6 +12,7 @@ import fatec.poo.model.Registro;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -112,9 +113,27 @@ public class ReservaLiberacao extends javax.swing.JFrame {
 
         txtNumQuarto.setEnabled(false);
 
+        txtDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtDataEntrada.setEnabled(false);
+        txtDataEntrada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDataEntradaFocusGained(evt);
+            }
+        });
 
+        txtDataSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtDataSaida.setToolTipText("");
         txtDataSaida.setEnabled(false);
+        txtDataSaida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDataSaidaFocusGained(evt);
+            }
+        });
+        txtDataSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataSaidaActionPerformed(evt);
+            }
+        });
 
         txtValorHospedagem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -196,7 +215,7 @@ public class ReservaLiberacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNumQuarto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDataSaida)
                             .addComponent(txtHospede)
@@ -319,33 +338,31 @@ public class ReservaLiberacao extends javax.swing.JFrame {
            txtDataSaida.setEnabled(true);
            txtValorHospedagem.setEnabled(true);
            txtNumQuarto.setEnabled(true);
-
  
            btnConsultar.setEnabled(false);
            btnReservar.setEnabled(true);
            btnLiberar.setEnabled(false);
-           
-  
        }
         
        else{
-          txtCPFHospede.setText(registro.getHospede().getCpf());
-          txtRegFunc.setText(Integer.toString(registro.getRecepcionista().getRegFunc()));
+          txtHospede.setText(registro.getHospede().getCpf());
+          txtRegFuncional.setText(Integer.toString(registro.getRecepcionista().getRegFunc()));
           txtNumQuarto.setText(Integer.toString(registro.getQuarto().getNumero()));
-          txtDataEntrada.setText(formatter.format(registro.getDataEntrada()));
-          txtDataSaida.setText(formatter.format(registro.getDataEntrada()));
-       
-          txtRegFuncional.setEnabled(false); 
-          txtCPFHospede.setEnabled(true);
-          txtRegFuncional.requestFocus();
-          txtRegFuncional.setEnabled(true);
-          txtDataEntrada.setEnabled(true);
-          txtDataSaida.setEnabled(true);
           
-          btnConsultar.setEnabled(false);
-          btnReservar.setEnabled(false);
+          txtDataEntrada.setText(formatter.format(registro.getDataEntrada()));
+          
+         
+         btnConsultar.setEnabled(false);
+
+          if(registro.getDataSaida()!=null){
+                txtDataSaida.setText(formatter.format(registro.getDataSaida()));
+          }
+          else{
+          txtDataSaida.setEnabled(true);
           btnLiberar.setEnabled(true);
-       
+          txtDataSaida.requestFocus();
+          }
+
         }
         
         }catch(NumberFormatException e){
@@ -363,8 +380,7 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-             
-               conexao = new Conexao("","");
+        conexao = new Conexao("","");
         
         conexao.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
         conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
@@ -378,36 +394,37 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
+            try{
             if (JOptionPane.showConfirmDialog(null, "Confirma Liberação?") == 0){
-            daoRegistro.excluir(registro); 
-            
-            txtCodigo.setText("");
-            txtRegFuncional.setText("");
-            txtRegFunc.setText("");
-            txtHospede.setText("");
-            txtCPFHospede.setText("");
-            txtNumQuarto.setText("");
-            txtSituacaoQuarto.setText("");
-            txtDataEntrada.setText("");
-            txtDataSaida.setText("");
-            txtValorHospedagem.setText("");
-
-            txtCodigo.setEnabled(true); 
-            txtRegFuncional.setEnabled(false);
-            txtRegFunc.setEnabled(false);
-            txtHospede.setEnabled(false);
-            txtCPFHospede.setEnabled(false);
-            txtNumQuarto.setEnabled(false);
-            txtSituacaoQuarto.setEnabled(false);
-            txtDataEntrada.setEnabled(false);
+                
+            LocalDate dtDataSaida = LocalDate.parse(txtDataSaida.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            registro.setDataSaida(dtDataSaida);
+            registro.liberarQuarto();
             txtDataSaida.setEnabled(false);
-            txtValorHospedagem.setEnabled(false);
-            txtCodigo.requestFocus();
-            btnConsultar.setEnabled(true);
-            btnReservar.setEnabled(false);
             btnLiberar.setEnabled(false);
+            txtValorHospedagem.setText(Double.toString(registro.getValorHospedagem()));
+            }
+        }
+        catch(DateTimeParseException ex){
+                txtDataSaida.requestFocus();
+                JOptionPane.showMessageDialog(null, "A data de saída não é uma data válida.", "Erro!", JOptionPane.WARNING_MESSAGE);
+            
+        
+            
+
        
     }    }//GEN-LAST:event_btnLiberarActionPerformed
+
+    private void txtDataSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataSaidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataSaidaActionPerformed
+
+    private void txtDataEntradaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataEntradaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataEntradaFocusGained
+
+    private void txtDataSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataSaidaFocusGained
+    }//GEN-LAST:event_txtDataSaidaFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;

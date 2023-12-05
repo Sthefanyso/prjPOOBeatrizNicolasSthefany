@@ -73,6 +73,8 @@ public class Registro {
     public double liberarQuarto(){
         double somaServico = 0;
         double desconto;
+        System.out.println(dataSaida);
+        System.out.println(dataEntrada);
         int dias = (int) (Duration.between(dataEntrada.atStartOfDay(), dataSaida.atStartOfDay())).toDays(); //calcula a quatidade de dias entre o ckeckin e o checkout e converte para INT
         
         
