@@ -1,5 +1,4 @@
 package fatec.poo.view;
-
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoHospede;
 import fatec.poo.control.DaoQuarto;
@@ -10,11 +9,9 @@ import fatec.poo.model.Quarto;
 import fatec.poo.model.Recepcionista;
 import fatec.poo.model.Registro;
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
@@ -140,16 +137,31 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         btnRegistroFunc.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistroFunc.setText("...");
         btnRegistroFunc.setEnabled(false);
+        btnRegistroFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroFuncActionPerformed(evt);
+            }
+        });
 
         btnHospede.setBackground(new java.awt.Color(255, 255, 255));
         btnHospede.setText("...");
         btnHospede.setEnabled(false);
+        btnHospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHospedeActionPerformed(evt);
+            }
+        });
 
         jLabelSituacao.setText("Situação");
 
         btnSituacaoQuarto.setBackground(new java.awt.Color(255, 255, 255));
         btnSituacaoQuarto.setText("...");
         btnSituacaoQuarto.setEnabled(false);
+        btnSituacaoQuarto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSituacaoQuartoActionPerformed(evt);
+            }
+        });
 
         txtCPFHospede.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -330,18 +342,11 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         registro = daoRegistro.consultar(Integer. parseInt(txtCodigo.getText()));
         
         if (registro == null){
+           btnConsultar.setEnabled(false);
            txtCodigo.setEnabled(false);
+           btnRegistroFunc.setEnabled(true);
            txtRegFuncional.setEnabled(true);
            txtRegFuncional.requestFocus();
-           txtHospede.setEnabled(true);
-           txtDataEntrada.setEnabled(true);
-           txtDataSaida.setEnabled(true);
-           txtValorHospedagem.setEnabled(true);
-           txtNumQuarto.setEnabled(true);
- 
-           btnConsultar.setEnabled(false);
-           btnReservar.setEnabled(true);
-           btnLiberar.setEnabled(false);
        }
         
        else{
@@ -373,9 +378,41 @@ public class ReservaLiberacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try{
+             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
      LocalDate dtDataEntrada = LocalDate.parse(txtDataEntrada.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-     //registro = new Registro(Integer.parseInt(txtCodigo.getText()),dtDataEntrada, recepcionista);
+     
+             registro = new Registro(Integer.parseInt(txtCodigo.getText()),dtDataEntrada, recepcionista);
+             registro.reservarQuarto(hospede, quarto);
+             daoRegistro.inserir(registro);
+             
+             
+             txtCPFHospede.setText("");
+             txtHospede.setText("");
+             txtCodigo.setText("");
+             txtDataEntrada.setText("");
+             txtRegFuncional.setText("");
+             txtRegFunc.setText("");
+             txtSituacaoQuarto.setText("");
+             txtValorHospedagem.setText("");
+             txtDataSaida.setText("");
+             txtNumQuarto.setText("");
+             
+             txtDataEntrada.setEnabled(false);
+             txtCodigo.setEnabled(true);
+             txtCodigo.requestFocus();
+             btnConsultar.setEnabled(true);
+             btnLiberar.setEnabled(false);
+             btnReservar.setEnabled(false);
+             btnHospede.setEnabled(false);
+             btnSituacaoQuarto.setEnabled(false);
+             btnRegistroFunc.setEnabled(false);
+        }
+        catch(DateTimeException ex){
+        txtDataEntrada.requestFocus();
+        JOptionPane.showMessageDialog(null, "A data de entrada não é uma data válida.", "Erro!", JOptionPane.WARNING_MESSAGE);
+       
+    }
         
     }//GEN-LAST:event_btnReservarActionPerformed
 
@@ -386,6 +423,9 @@ public class ReservaLiberacao extends javax.swing.JFrame {
         conexao.setConnectionString("jdbc:ucanaccess://C:\\Users\\beavi\\OneDrive\\Área de Trabalho\\FATEC\\prjPOOBeatrizNicolasSthefany\\prjPOOBeatrizNicolasSthefany\\src\\fatec\\poo\\basedados\\dbHotel.accdb");
                 
         daoRegistro = new DaoRegistro(conexao.conectar());
+        daoRecepcionista = new DaoRecepcionista(conexao.conectar());
+        daoHospede = new DaoHospede(conexao.conectar());
+        daoQuarto = new DaoQuarto(conexao.conectar());
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -405,13 +445,9 @@ public class ReservaLiberacao extends javax.swing.JFrame {
             txtValorHospedagem.setText(Double.toString(registro.getValorHospedagem()));
             }
         }
-        catch(DateTimeParseException ex){
+        catch(DateTimeException ex){
                 txtDataSaida.requestFocus();
                 JOptionPane.showMessageDialog(null, "A data de saída não é uma data válida.", "Erro!", JOptionPane.WARNING_MESSAGE);
-            
-        
-            
-
        
     }    }//GEN-LAST:event_btnLiberarActionPerformed
 
@@ -425,6 +461,71 @@ public class ReservaLiberacao extends javax.swing.JFrame {
 
     private void txtDataSaidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataSaidaFocusGained
     }//GEN-LAST:event_txtDataSaidaFocusGained
+
+    private void btnRegistroFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroFuncActionPerformed
+        int codigo = Integer.parseInt(txtRegFuncional.getText());
+        recepcionista = daoRecepcionista.consultar(codigo);
+        
+        if (recepcionista == null){
+            txtRegFunc.setText("Recepcionista não Cadastrado.");
+            txtRegFuncional.requestFocus();
+        }
+        else{
+            txtRegFunc.setText(recepcionista.getNome());
+           txtRegFuncional.setEnabled(false);
+           btnRegistroFunc.setEnabled(false);
+           txtHospede.setEnabled(true);
+           btnHospede.setEnabled(true);
+           txtHospede.requestFocus();
+           
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnRegistroFuncActionPerformed
+
+    private void btnHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospedeActionPerformed
+                String cpf = txtHospede.getText();
+        hospede = daoHospede.consultar(cpf);
+        
+        if (hospede == null){
+            txtCPFHospede.setText("Hospede não Cadastrado.");
+            txtHospede.requestFocus();
+        }
+        else{
+            txtCPFHospede.setText(hospede.getNome());
+           txtHospede.setEnabled(false);
+           btnHospede.setEnabled(false);
+           txtNumQuarto.setEnabled(true);
+           btnSituacaoQuarto.setEnabled(true);
+           txtNumQuarto.requestFocus();
+           
+        }
+    }//GEN-LAST:event_btnHospedeActionPerformed
+
+    private void btnSituacaoQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSituacaoQuartoActionPerformed
+                int numero = Integer.parseInt(txtNumQuarto.getText());
+        quarto = daoQuarto.consultar(numero);
+        
+        if (quarto == null){
+            txtSituacaoQuarto.setText("Quarto não Cadastrado.");
+            txtNumQuarto.requestFocus();
+        }
+        else{
+            if(quarto.getSituacao()){
+            txtSituacaoQuarto.setText("Quarto Ocupado.");
+            txtNumQuarto.requestFocus();
+            }
+            else{
+                txtSituacaoQuarto.setText("Quarto Livre!");
+            txtDataEntrada.requestFocus();
+            txtDataEntrada.setEnabled(true);
+            txtNumQuarto.setEnabled(false);
+            btnSituacaoQuarto.setEnabled(false);
+            
+            btnReservar.setEnabled(true);
+            }}
+    }//GEN-LAST:event_btnSituacaoQuartoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;

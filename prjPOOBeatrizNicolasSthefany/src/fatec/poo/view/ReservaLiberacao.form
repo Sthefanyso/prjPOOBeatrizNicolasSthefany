@@ -236,6 +236,9 @@
         <Property name="text" type="java.lang.String" value="..."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistroFuncActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnHospede">
       <Properties>
@@ -245,6 +248,9 @@
         <Property name="text" type="java.lang.String" value="..."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHospedeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelSituacao">
       <Properties>
@@ -259,6 +265,9 @@
         <Property name="text" type="java.lang.String" value="..."/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSituacaoQuartoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtCPFHospede">
       <Properties>
